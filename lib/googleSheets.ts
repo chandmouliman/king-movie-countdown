@@ -31,6 +31,14 @@ export const loadSheet = async () => {
 export const appendToSheet = async (data: { Timestamp: string, Name: string, City: string, Mobile: string }) => {
     const doc = await loadSheet();
     const sheet = doc.sheetsByIndex[0]; // First sheet
+
+    try {
+        await sheet.loadHeaderRow();
+    } catch (e) {
+        // If header loading fails, it likely means the sheet is empty
+        await sheet.setHeaderRow(['Timestamp', 'Name', 'City', 'Mobile']);
+    }
+
     await sheet.addRow(data);
 };
 
