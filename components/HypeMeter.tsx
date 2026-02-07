@@ -42,7 +42,7 @@ export default function HypeMeter({ count }: { count: number }) {
                     letterSpacing: '1px',
                     textTransform: 'uppercase'
                 }}>
-                    People Joined the Army
+                    PEOPLE JOINED THE ARMY
                 </span>
             </div>
 
