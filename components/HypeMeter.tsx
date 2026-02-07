@@ -27,7 +27,7 @@ export default function HypeMeter({ count }: { count: number }) {
             }}>
                 <span style={{
                     fontFamily: 'var(--font-cinzel)',
-                    fontSize: '3.5rem',
+                    fontSize: 'clamp(2rem, 10vw, 3.5rem)', // Responsive font size
                     fontWeight: '900',
                     color: '#d4af37',
                     textShadow: '0 0 20px rgba(212, 175, 55, 0.4)',

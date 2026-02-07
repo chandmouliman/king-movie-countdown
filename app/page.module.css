@@ -46,6 +46,13 @@
   /* Fill empty space */
 }
 
+@media (max-width: 768px) {
+  .bgImage {
+    object-fit: cover;
+    object-position: top center;
+  }
+}
+
 .bgVideo {
   object-fit: cover;
   z-index: -1;
@@ -711,6 +718,13 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .castGrid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
 }
 
 /* Cast Card */

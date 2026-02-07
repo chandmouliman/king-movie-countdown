@@ -32,15 +32,14 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
             <audio ref={audioRef} src="/assets/king-theme.mp3" loop />
 
             {/* Visual Control Button */}
-            {hasInteracted && (
-                <button
-                    className={styles.audioControl}
-                    onClick={onToggle}
-                    aria-label={isPlaying ? "Mute Sound" : "Enable Sound"}
-                >
-                    {isPlaying ? "AUDIO ON" : "AUDIO OFF"}
-                </button>
-            )}
+            {/* Visual Control Button - Always Visible */}
+            <button
+                className={styles.audioControl}
+                onClick={onToggle}
+                aria-label={isPlaying ? "Mute Sound" : "Enable Sound"}
+            >
+                {isPlaying ? "AUDIO ON" : "AUDIO OFF"}
+            </button>
         </>
     );
 }
