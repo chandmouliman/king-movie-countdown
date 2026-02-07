@@ -45,26 +45,48 @@
 
 @media (max-width: 768px) {
     .navbar {
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.8);
-        /* Darker for better visibility */
+        padding: 0.8rem 0;
+        background: rgba(0, 0, 0, 0.9);
         width: 100%;
-        backdrop-filter: blur(10px);
-        /* Mobile Resets */
+        backdrop-filter: blur(20px);
         position: fixed;
         bottom: 0;
         top: auto;
         left: 0;
         transform: none;
         display: flex;
-        /* Center content */
         justify-content: center;
-        border-top: 1px solid rgba(212, 175, 55, 0.3);
+        border-top: 1px solid rgba(212, 175, 55, 0.4);
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
     }
 
     .navList {
         flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .navItem {
+        font-size: 0.65rem;
+        /* Smaller font for mobile tabs */
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 0.5rem;
+        flex: 1;
+        /* Equal width */
+        display: flex;
+        align-items: center;
         justify-content: center;
-        gap: 2rem;
+        border-radius: 8px;
+        white-space: normal;
+        /* Allow wrapping for long text */
+        line-height: 1.2;
+    }
+
+    .navItem:active {
+        background: rgba(212, 175, 55, 0.15);
     }
 }
