@@ -65,6 +65,13 @@
   height: 100%;
 }
 
+@media (max-width: 768px) {
+  .bgVideo {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
 /* Vignette/Gradient Overlays */
 .backgroundOverlay {
   position: absolute;
