@@ -55,6 +55,7 @@ export default function Home() {
   const handleOpenVideo = (videoId: string) => {
     setActiveVideoId(videoId);
     setIsTeaserOpen(true);
+    setIsPlaying(false); // Pause audio when video opens
   };
 
   const handleCloseVideo = () => {
@@ -72,6 +73,7 @@ export default function Home() {
 
   const handleOpenFDFS = () => {
     setIsFDFSOpen(true);
+    setIsPlaying(false); // Pause audio when FDFS opens
   };
 
   const handleCloseFDFS = () => {

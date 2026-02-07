@@ -29,7 +29,7 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
 
     return (
         <>
-            <audio ref={audioRef} src="/assets/king-theme.mp3" loop />
+            <audio ref={audioRef} src="/assets/king-theme.mp3" />
 
             {/* Visual Control Button */}
             {/* Visual Control Button - Always Visible */}
