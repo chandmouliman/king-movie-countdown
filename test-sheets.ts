@@ -24,7 +24,7 @@ if (missing.length > 0) {
 
 async function test() {
     // Dynamic import to ensure env vars are loaded first
-    const { appendToSheet, getSheetCount } = await import('./lib/googleSheets.ts');
+    const { appendToSheet, getSheetCount } = await import('./lib/googleSheets');
 
     console.log("Testing Google Sheets connection...");
     // console.log("GOOGLE_SHEET_ID present:", !!process.env.GOOGLE_SHEET_ID);
