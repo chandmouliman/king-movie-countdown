@@ -1,0 +1,332 @@
+.container {
+    width: 100%;
+    margin-top: 4rem;
+    position: relative;
+    padding: 0 1rem;
+}
+
+.heading {
+    text-align: left;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 1rem;
+    border-left: 4px solid var(--primary-orange);
+}
+
+.title {
+    font-family: var(--font-cinzel);
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0;
+}
+
+.subtitle {
+    font-family: var(--font-bebas);
+    font-size: 5rem;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 0.8;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0;
+    /* No gap for seamless look */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card {
+    position: relative;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:last-child {
+    border-right: none;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2) brightness(0.8);
+    transition: all 0.5s ease;
+}
+
+.card:hover .image {
+    filter: grayscale(0%) contrast(1.1) brightness(1);
+    transform: scale(1.05);
+}
+
+/* Scanline Effect */
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-bebas);
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.05);
+    line-height: 1;
+    z-index: 3;
+}
+
+.info {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 4;
+}
+
+.name {
+    font-family: var(--font-bebas);
+    /* Bold sans-serif */
+    font-size: 2.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 0.9;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.role {
+    font-family: var(--font-inter);
+    font-size: 0.8rem;
+    color: var(--primary-orange);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 10px;
+    border-left: 2px solid var(--primary-orange);
+}
+
+.crosshair {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 69, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+}
+
+.crosshair::before,
+.crosshair::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 69, 0, 0.5);
+}
+
+.crosshair::before {
+    width: 100%;
+    height: 1px;
+}
+
+.crosshair::after {
+    width: 1px;
+    height: 100%;
+}
+
+/* Mobile adjustments first since min-width logic is cleaner for "desktop only" */
+@media (max-width: 768px) {
+    .container {
+        padding-bottom: 6rem;
+        /* Clear bottom navbar */
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 3.5rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .name {
+        font-size: 2rem;
+        /* Reduce font size to prevent wrapping */
+    }
+
+    .crewHeader {
+        margin-top: 3rem;
+        /* Reduce gap */
+    }
+
+    .crewTitle {
+        font-size: 2.5rem;
+        /* Smaller title for mobile */
+    }
+
+    .crewGrid {
+        gap: 2rem;
+    }
+}
+
+/* Desktop Sidebar Clearance */
+@media (min-width: 769px) {
+    .container {
+        padding-left: 30rem;
+        /* Clear fixed left sidebar (approx 420px) */
+        padding-right: 2rem;
+    }
+}
+
+/* Crew Section Styles */
+.crewHeader {
+    text-align: center;
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-top: 2rem;
+    border-top: 1px dashed rgba(255, 69, 0, 0.3);
+}
+
+.crewOverline {
+    font-family: var(--font-inter);
+    color: var(--primary-orange);
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.crewTitle {
+    font-family: var(--font-bebas);
+    font-size: 4rem;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0;
+}
+
+.crewHighlight {
+    color: #B22222;
+    /* Blood red for CHAOS */
+    text-shadow: 0 0 10px rgba(178, 34, 34, 0.5);
+}
+
+.crewGrid {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    padding-bottom: 4rem;
+}
+
+.crewCard {
+    text-align: center;
+    width: 250px;
+    position: relative;
+}
+
+.crewImageContainer {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.crewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2);
+    transition: all 0.5s ease;
+}
+
+.crewCard:hover .crewImage {
+    filter: grayscale(0%) contrast(1.1);
+    transform: scale(1.1);
+}
+
+/* Scanlines for Crew too */
+.crewScanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 3px;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 50%;
+}
+
+.crewName {
+    font-family: var(--font-bebas);
+    font-size: 2rem;
+    color: #e0e0e0;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.crewRole {
+    font-family: var(--font-inter);
+    font-size: 0.75rem;
+    color: #B22222;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    display: inline-block;
+    border-top: 1px solid #B22222;
+    padding-top: 5px;
+}

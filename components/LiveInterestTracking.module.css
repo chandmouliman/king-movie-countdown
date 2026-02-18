@@ -1,0 +1,365 @@
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    font-family: var(--font-inter);
+    color: #fff;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-family: var(--font-cinzel);
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+}
+
+.mainContainer {
+    display: flex;
+    gap: 2rem;
+    align-items: stretch;
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+    }
+}
+
+.posterWrapper {
+    flex: 0 0 300px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    min-height: 400px;
+}
+
+.posterImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.posterWrapper:hover .posterImage {
+    transform: scale(1.05);
+}
+
+.subtitle {
+    font-family: var(--font-inter);
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.liveIndicator {
+    width: 10px;
+    height: 10px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff00;
+    animation: pulse 1.5s infinite;
+}
+
+.orangeBar {
+    width: 4px;
+    height: 2rem;
+    background-color: #ff5500;
+    margin-right: 0.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: auto auto;
+    }
+}
+
+.card {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.interestCard {
+    grid-row: span 1;
+}
+
+.chartCard {
+    grid-column: span 1;
+
+    @media (min-width: 900px) {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}
+
+.logsCard {
+    grid-column: span 1;
+
+    @media (min-width: 900px) {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+}
+
+.cardLabel {
+    font-size: 0.75rem;
+    color: #888;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.bigNumber {
+    font-size: 4rem;
+    font-weight: 900;
+    font-family: var(--font-cinzel);
+    line-height: 1;
+    margin-bottom: 2rem;
+}
+
+.statsRow {
+    display: flex;
+    gap: 3rem;
+    margin-top: auto;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.statLabel {
+    font-size: 0.7rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.statValue {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #00ff00;
+}
+
+.positive {
+    color: #00ff00;
+}
+
+.chartHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.chartTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.chartIcon {
+    color: #ff5500;
+}
+
+.timeToggle {
+    display: flex;
+    background: #000;
+    padding: 4px;
+    border-radius: 8px;
+    border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+}
+
+.interestedBtn {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1rem;
+    background-color: #00ff00;
+    color: #000;
+    font-family: var(--font-inter);
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.interestedBtn:hover {
+    background-color: #00cc00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+}
+
+.toggleBtn {
+    background: transparent;
+    border: none;
+    color: #666;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.toggleBtn.active {
+    background: #ff5500;
+    color: #fff;
+}
+
+.chartContainer {
+    width: 100%;
+    height: 200px;
+    position: relative;
+}
+
+.chartSvg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.chartLine {
+    fill: none;
+    stroke: #ff5500;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 8px rgba(255, 85, 0, 0.3));
+}
+
+.chartArea {
+    fill: url(#gradient);
+    opacity: 0.2;
+}
+
+.chartDot {
+    fill: #fff;
+    stroke: #ff5500;
+    stroke-width: 2;
+}
+
+.xAxis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    color: #444;
+    font-size: 0.75rem;
+}
+
+.logsHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.logsIcon {
+    color: #3b82f6;
+}
+
+.logsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.logsTable th {
+    text-align: left;
+    color: #666;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logsTable td {
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-variant-numeric: tabular-nums;
+}
+
+.logTime {
+    color: #888;
+}
+
+.logInterest {
+    font-weight: 700;
+    font-family: var(--font-cinzel);
+}
+
+.logGrowth {
+    color: #00ff00;
+    text-align: right;
+}
+
+.logsTable th:last-child {
+    text-align: right;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Image at bottom left of the screenshot */
+.posterCard {
+    height: 100%;
+    min-height: 400px;
+    background-image: url('/path-to-poster.jpg');
+    /* Placeholder */
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    position: relative;
+}

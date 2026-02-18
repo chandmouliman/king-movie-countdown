@@ -12,7 +12,8 @@ import GalleryModal from "../components/GalleryModal";
 import FDFSModal from "../components/FDFSModal";
 import FanCardModal from "../components/FanCardModal";
 import VaultModal from "../components/VaultModal";
-import HypeMeter from "../components/HypeMeter";
+import LiveInterestTracking from '@/components/LiveInterestTracking';
+import CastShowcase from '@/components/CastShowcase';
 import Navbar from "@/components/Navbar";
 import TeaserCard from "@/components/TeaserCard";
 import CastCard from "@/components/CastCard";
@@ -21,6 +22,7 @@ import CastCard from "@/components/CastCard";
 // Target Date: December 24, 2026
 const TARGET_DATE = new Date("2026-12-24T00:00:00");
 
+
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isTeaserOpen, setIsTeaserOpen] = useState(false);
@@ -28,21 +30,8 @@ export default function Home() {
   const [isFDFSOpen, setIsFDFSOpen] = useState(false);
   const [isFanCardOpen, setIsFanCardOpen] = useState(false);
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
-  const [fanCount, setFanCount] = useState(0); // Live Fan Pulse Count
 
-  // Fetch initial count from API
-  useEffect(() => {
-    const fetchCount = async () => {
-      try {
-        const res = await fetch('/api/register');
-        const data = await res.json();
-        if (data.count) setFanCount(data.count);
-      } catch (error) {
-        console.error("Failed to fetch fan count", error);
-      }
-    };
-    fetchCount();
-  }, []);
+
 
   const handleEnter = () => {
     setIsPlaying(true);
@@ -89,25 +78,16 @@ export default function Home() {
   };
 
   const handleRegistration = async (name: string, city: string, mobile: string) => {
-    // Optimistic update
-    setFanCount(prev => prev + 1);
-
     try {
-      const res = await fetch('/api/register', {
+      await fetch('/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, city, mobile }),
       });
-
-      const data = await res.json();
-      if (data.count) {
-        setFanCount(data.count); // Sync with server count
-      }
     } catch (error) {
       console.error("Failed to save registration", error);
-      // Rollback if needed, but for now we keep the optimistic update locally
     }
   };
 
@@ -181,44 +161,12 @@ export default function Home() {
 
       {/* Live Fan Pulse */}
       <section className="reveal-on-scroll" style={{ animationDelay: '0.5s' }}>
-        <HypeMeter count={fanCount} />
+        <LiveInterestTracking />
+
+        <CastShowcase />
       </section>
 
-      {/* Cast & Crew Section */}
-      <section className={`${styles.castSection} reveal-on-scroll`} style={{ animationDelay: '0.6s' }}>
-        <h2 className={styles.sectionTitle}>Cast & Crew</h2>
 
-        <div className={styles.castCategory}>
-          <h3 className={styles.categoryTitle}>Cast</h3>
-          <div className={styles.castGrid}>
-            <CastCard name="Shah Rukh Khan" role="Lead" />
-            <CastCard name="Suhana Khan" role="Lead" />
-            <CastCard name="Abhishek Bachchan" role="Antagonist" />
-          </div>
-        </div>
-
-        <div className={styles.castCategory}>
-          <h3 className={styles.categoryTitle}>Director</h3>
-          <div className={styles.castGrid}>
-            <CastCard name="Siddharth Anand" />
-          </div>
-        </div>
-
-        <div className={styles.castCategory}>
-          <h3 className={styles.categoryTitle}>Music</h3>
-          <div className={styles.castGrid}>
-            <CastCard name="Anirudh Ravichander" />
-          </div>
-        </div>
-
-        <div className={styles.castCategory}>
-          <h3 className={styles.categoryTitle}>Producers</h3>
-          <div className={styles.castGrid}>
-            <CastCard name="Gauri Khan" />
-            <CastCard name="Siddharth Anand" />
-          </div>
-        </div>
-      </section>
 
 
 

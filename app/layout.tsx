@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Cinzel } from "next/font/google"; // Import fonts
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" }); // Configure Cinzel
@@ -30,6 +31,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${cinzel.variable}`}>
         <CustomCursor />
+        <SmoothScroll />
+        <div className="cinematic-grain" />
+        <div className="vignette" />
         {children}
       </body>
     </html>
