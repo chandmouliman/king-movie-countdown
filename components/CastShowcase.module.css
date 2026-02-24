@@ -63,13 +63,31 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) contrast(1.2) brightness(0.8);
-    transition: all 0.5s ease;
+    filter: grayscale(100%) contrast(1.2) brightness(0.6);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(212, 175, 55, 0.9), transparent);
+    z-index: 2;
+    transform: translateY(100%);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0.8;
 }
 
 .card:hover .image {
-    filter: grayscale(0%) contrast(1.1) brightness(1);
-    transform: scale(1.05);
+    filter: grayscale(0%) contrast(1.1) brightness(1.2);
+    transform: scale(1.08);
+}
+
+.card:hover::after {
+    transform: translateY(0);
 }
 
 /* Scanline Effect */
@@ -106,6 +124,12 @@
     bottom: 2rem;
     left: 2rem;
     z-index: 4;
+    transform: translateY(10px);
+    transition: transform 0.4s ease;
+}
+
+.card:hover .info {
+    transform: translateY(-10px);
 }
 
 .name {
@@ -282,12 +306,17 @@
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%) contrast(1.2);
-    transition: all 0.5s ease;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.crewImageContainer:hover {
+    box-shadow: 0 0 30px var(--gold-glow), inset 0 0 20px rgba(212, 175, 55, 0.2);
+    border-color: var(--gold-bright);
 }
 
 .crewCard:hover .crewImage {
     filter: grayscale(0%) contrast(1.1);
-    transform: scale(1.1);
+    transform: scale(1.12);
 }
 
 /* Scanlines for Crew too */

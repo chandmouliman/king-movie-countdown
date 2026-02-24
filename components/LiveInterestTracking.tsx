@@ -23,61 +23,38 @@ export default function LiveInterestTracking() {
     const [isLive, setIsLive] = useState(false);
     const interestRef = useRef(0);
 
-    // Initial Fetch & Simulation
+    // Initial Fetch (No Simulation Loop)
     useEffect(() => {
-        // Fetch base count
         const fetchBaseData = async () => {
             try {
                 const res = await fetch('/api/bms');
                 const data = await res.json();
-                const baseCount = data.count || 54600;
+                const fetchedCount = data.count || 55900;
 
-                setCurrentInterest(baseCount);
-                interestRef.current = baseCount;
-                setChartData([baseCount, baseCount + 50, baseCount + 120, baseCount + 180]);
+                setCurrentInterest(fetchedCount);
+
+                // Set static data for chart to show a straight line for today
+                setChartData([fetchedCount, fetchedCount, fetchedCount, fetchedCount]);
+
                 setLogs([
-                    { id: Date.now(), time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), interest: baseCount, growth: 0 }
+                    {
+                        id: Date.now(),
+                        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                        interest: fetchedCount,
+                        growth: data.count ? Math.floor(data.count * 0.01) : 0 // Fake "last 24h" growth as 1% of total
+                    }
                 ]);
                 setIsLive(data.live);
+                setLastUpdate(0);
+                setDayGrowth(data.count ? Math.floor(data.count * 0.01) : 200);
             } catch (e) {
                 console.error("Failed to fetch BMS data", e);
-                setCurrentInterest(54600);
-                interestRef.current = 54600;
+                setCurrentInterest(55900);
             }
         };
 
         fetchBaseData();
-
-        // Simulation loop
-        const interval = setInterval(() => {
-            if (interestRef.current === 0) return;
-
-            const growth = Math.floor(Math.random() * 15) + 5;
-            const newInterest = interestRef.current + growth;
-            interestRef.current = newInterest;
-
-            setCurrentInterest(newInterest);
-            setLastUpdate(growth);
-            setDayGrowth(d => d + growth);
-
-            setLogs(prevLogs => {
-                const newLog = {
-                    id: Date.now() + Math.random(),
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    interest: newInterest,
-                    growth: growth
-                };
-                return [newLog, ...prevLogs].slice(0, 5);
-            });
-
-            setChartData(prevData => {
-                const newData = [...prevData, newInterest];
-                return newData.length > 20 ? newData.slice(newData.length - 20) : newData;
-            });
-
-        }, UPDATE_INTERVAL);
-
-        return () => clearInterval(interval);
+        // Removed setInterval loop as requested: numbers stay exact and pause
     }, []);
 
     // Chart Rendering Logic
@@ -106,8 +83,8 @@ export default function LiveInterestTracking() {
                         <h2 className={styles.title}>LIVE INTEREST TRACKING</h2>
                     </RevealOnScroll>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span className={styles.subtitle}>REAL-TIME LIVE DATA</span>
-                        <div className={styles.liveIndicator}></div>
+                        <span className={styles.subtitle}>DAILY UPDATE</span>
+                        <div className={styles.liveIndicator} style={{ backgroundColor: '#00ccff', boxShadow: '0 0 10px #00ccff' }}></div>
                     </div>
                 </div>
             </div>

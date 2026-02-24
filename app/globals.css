@@ -3,6 +3,12 @@
   --foreground: #ffffff;
   --gold: #d4af37;
   --gold-dim: #8a7224;
+  --gold-bright: #f5d76e;
+  --gold-glow: rgba(212, 175, 55, 0.35);
+  --orange: #ff5500;
+  --neon-green: #00ff88;
+  --glass-bg: rgba(10, 10, 10, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
   --font-inter: 'Inter', sans-serif;
   --font-cinzel: 'Cinzel', serif;
 }
@@ -14,14 +20,12 @@ body {
   color: var(--foreground);
   overflow-x: hidden;
   cursor: none;
-  /* Hide default cursor */
 }
 
 a,
 button,
 [role="button"] {
   cursor: none;
-  /* Ensure pointer is also hidden */
 }
 
 body {
@@ -62,7 +66,7 @@ a {
   }
 }
 
-/* Cinematic Effects */
+/* ─── Cinematic Effects ───────────────────────────────── */
 .cinematic-grain {
   position: fixed;
   top: 0;
@@ -71,8 +75,31 @@ a {
   height: 100%;
   pointer-events: none;
   z-index: 9000;
-  opacity: 0.05;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  animation: grainShift 0.15s steps(1) infinite;
+}
+
+@keyframes grainShift {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  25% {
+    background-position: 100% 0%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  75% {
+    background-position: 0% 100%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 .vignette {
@@ -83,14 +110,27 @@ a {
   height: 100%;
   pointer-events: none;
   z-index: 8000;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.6) 100%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.75) 100%);
 }
 
-/* Reveal Animations */
+/* ─── Scroll Progress Bar ─────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-bright));
+  box-shadow: 0 0 10px var(--gold-glow), 0 0 25px var(--gold-glow);
+  z-index: 99999;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ─── Reveal Animations ───────────────────────────────── */
 @keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(32px);
   }
 
   to {
@@ -101,12 +141,113 @@ a {
 
 .reveal-on-scroll {
   opacity: 0;
-  animation: reveal 1s cubic-bezier(0.5, 0, 0, 1) forwards;
+  animation: reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Custom Cinematic Scrollbar */
+/* ─── Global Keyframes ────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes floatUp {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes borderGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 15px var(--gold-glow), inset 0 0 15px rgba(212, 175, 55, 0.03);
+  }
+
+  50% {
+    box-shadow: 0 0 35px var(--gold-glow), inset 0 0 25px rgba(212, 175, 55, 0.08);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes neonFlicker {
+
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+  }
+
+  20%,
+  24%,
+  55% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes slideUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes digitFlip {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+
+  50% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+
+  51% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+/* ─── Custom Cinematic Scrollbar ──────────────────────── */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -114,11 +255,10 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #8a7224, #d4af37, #8a7224);
-  border-radius: 5px;
-  border: 2px solid #000;
+  background: linear-gradient(180deg, #3a2a06, var(--gold), #3a2a06);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #fff;
+  background: var(--gold-bright);
 }

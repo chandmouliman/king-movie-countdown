@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import styles from "../app/page.module.css";
+import styles from "./SplashScreen.module.css";
 
 interface SplashScreenProps {
     onEnter: () => void;
@@ -10,41 +10,56 @@ interface SplashScreenProps {
 export default function SplashScreen({ onEnter }: SplashScreenProps) {
     const [isVisible, setIsVisible] = useState(true);
     const [isFading, setIsFading] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        const t = setTimeout(() => setIsLoaded(true), 200);
+        return () => clearTimeout(t);
+    }, []);
 
     const handleClick = () => {
         setIsFading(true);
         onEnter();
-        setTimeout(() => {
-            setIsVisible(false);
-        }, 1000); // 1s fade out duration
+        setTimeout(() => setIsVisible(false), 1200);
     };
 
     if (!isVisible) return null;
 
     return (
         <div
-            className={styles.splashScreen}
+            className={`${styles.splash} ${isFading ? styles.fadeOut : ""}`}
             onClick={handleClick}
-            style={{
-                opacity: isFading ? 0 : 1,
-                transition: "opacity 1s ease-out",
-                pointerEvents: isFading ? "none" : "auto"
-            }}
         >
+            {/* Background image */}
             <img
                 src="/assets/king-splashs-creen.jpg"
-                alt="Splash Background"
-                className={styles.splashBg}
-                onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    console.error("Splash background image not found");
-                }}
+                alt="King Movie"
+                className={styles.bg}
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
-            <div className={styles.splashContent}>
-                <div className={styles.splashText}>
-                    <h2>Shah RUkh Khan's KING</h2>
-                    <p>(Click here )</p>
+
+            {/* Dark overlay */}
+            <div className={styles.overlay} />
+
+            {/* Content */}
+            <div className={`${styles.content} ${isLoaded ? styles.contentVisible : ""}`}>
+                {/* Tagline */}
+                <p className={styles.tagline}>SHAH RUKH KHAN</p>
+
+                {/* Title with shimmer */}
+                <h1 className={styles.title}>KING</h1>
+                <p className={styles.sub}>DARR NAHI — DEHSHAT HOON</p>
+
+                {/* Enter button with pulse rings */}
+                <div className={styles.enterWrapper}>
+                    <div className={styles.ring1} />
+                    <div className={styles.ring2} />
+                    <button className={styles.enterBtn}>
+                        <span className={styles.enterBtnInner}>ENTER</span>
+                    </button>
                 </div>
+
+                <p className={styles.hint}>Click anywhere to continue</p>
             </div>
         </div>
     );

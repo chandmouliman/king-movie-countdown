@@ -216,8 +216,7 @@
 
 .title {
   font-family: var(--font-cinzel), serif;
-  font-size: 5rem;
-  /* Matched to Reference Hero (80px) */
+  font-size: 6rem;
   font-weight: 900;
   letter-spacing: 0.05em;
   line-height: 1;
@@ -226,9 +225,8 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.4));
+  filter: drop-shadow(0 0 40px var(--gold-glow));
   margin: 1rem 0;
-  animation: zoomOut 20s ease-out infinite alternate;
 }
 
 @keyframes zoomOut {
@@ -270,21 +268,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(20, 20, 20, 0.6);
-  /* Reduced opacity for glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  /* Subtle border */
-  border-radius: 8px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
   padding: 2rem 2.5rem;
   min-width: 160px;
-  backdrop-filter: blur(20px);
-  /* Stronger blur */
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.05),
-    0 10px 30px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+    inset 0 0 30px rgba(255, 255, 255, 0.02),
+    0 15px 35px rgba(0, 0, 0, 0.6);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   overflow: hidden;
-  /* Contain the noise */
 }
 
 .timeBox::before {
@@ -301,27 +296,29 @@
 .timeBox:hover {
   border-color: rgba(212, 175, 55, 0.6);
   box-shadow:
-    inset 0 0 20px rgba(212, 175, 55, 0.1),
-    0 15px 40px rgba(0, 0, 0, 0.6);
-  transform: translateY(-5px);
+    inset 0 0 30px rgba(212, 175, 55, 0.1),
+    0 15px 40px rgba(0, 0, 0, 0.6),
+    0 0 20px var(--gold-glow);
+  transform: translateY(-8px);
 }
 
 .timeValue {
   font-family: var(--font-cinzel);
-  font-size: 3.5rem;
-  /* Increased font size */
-  color: #d4af37;
-  /* Gold numbers */
+  font-size: 4rem;
+  color: #fff;
+  text-shadow: 0 0 20px var(--gold-glow);
   line-height: 1;
 }
 
 .timeLabel {
   font-family: var(--font-inter);
-  font-size: 0.5rem;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.2em;
-  margin-top: 0.5rem;
+  font-size: 0.65rem;
+  color: var(--gold-bright);
+  letter-spacing: 0.3em;
+  margin-top: 0.8rem;
   text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.8;
 }
 
 .separator {
@@ -338,32 +335,56 @@
 }
 
 .primaryBtn {
+  position: relative;
   background: transparent;
   border: 1px solid rgba(212, 175, 55, 0.6);
   color: #fff;
-  padding: 0.8rem 2rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
+  padding: 1rem 2.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   border-radius: 50px;
-  /* Pill shape */
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 0 15px var(--gold-glow);
 }
 
 .primaryBtn::before {
   content: "▶";
-  font-size: 0.7em;
-  color: #d4af37;
+  font-size: 0.8em;
+  color: var(--gold-bright);
+  transition: transform 0.3s ease;
+}
+
+.primaryBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
 }
 
 .primaryBtn:hover {
-  background: rgba(212, 175, 55, 0.1);
-  border-color: #d4af37;
-  color: #fff;
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 30px var(--gold-glow);
+  transform: translateY(-2px);
+}
+
+.primaryBtn:hover::after {
+  left: 100%;
+}
+
+.primaryBtn:hover::before {
+  transform: scale(1.2);
 }
 
 .secondaryBtn {
@@ -588,18 +609,18 @@
 .teaserCard {
   width: 100%;
   flex: 1;
-  /* Equal width */
-  background: rgba(10, 10, 10, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .teaserCard:hover {
-  transform: translateY(-10px);
-  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-12px);
+  border-color: var(--gold-bright);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px var(--gold-glow);
 }
 
 .cardImageContainer {
@@ -613,11 +634,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .teaserCard:hover .cardImage {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .playOverlay {
@@ -626,12 +647,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .teaserCard:hover .playOverlay {
@@ -639,9 +660,30 @@
 }
 
 .playIcon {
-  font-size: 3rem;
+  position: relative;
+  font-size: 4rem;
   color: #fff;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  filter: drop-shadow(0 0 20px var(--gold-glow));
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.teaserCard:hover .playIcon {
+  transform: scale(1.1);
+}
+
+.playIcon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-bright);
+  animation: pulseRing 2s infinite;
+  z-index: -1;
 }
 
 .cardContent {
