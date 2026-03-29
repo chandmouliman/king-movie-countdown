@@ -29,7 +29,7 @@ export default function LiveInterestTracking() {
             try {
                 const res = await fetch('/api/bms');
                 const data = await res.json();
-                const fetchedCount = data.count || 55900;
+                const fetchedCount = data.count || 63400;
 
                 setCurrentInterest(fetchedCount);
 
@@ -49,7 +49,7 @@ export default function LiveInterestTracking() {
                 setDayGrowth(data.count ? Math.floor(data.count * 0.01) : 200);
             } catch (e) {
                 console.error("Failed to fetch BMS data", e);
-                setCurrentInterest(55900);
+                setCurrentInterest(63400);
             }
         };
 
