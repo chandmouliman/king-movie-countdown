@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export async function GET() {
     const BMS_URL = "https://in.bookmyshow.com/movies/hyderabad/king/ET00455480";
     // Fallback to the live value we found if scraping fails
-    const FALLBACK_COUNT = 63400; // Updated: 63.4K+ as of 2026-03-30
+    const FALLBACK_COUNT = 63450; // Updated: 63.45K+ as of 2026-03-30 03:00
 
     try {
         const res = await fetch(BMS_URL, {

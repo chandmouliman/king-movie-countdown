@@ -216,17 +216,23 @@
 
 .title {
   font-family: var(--font-cinzel), serif;
-  font-size: 6rem;
+  font-size: clamp(5rem, 15vw, 10rem);
   font-weight: 900;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.15em;
   line-height: 1;
   color: #fff;
-  background: linear-gradient(180deg, #ffeebb 0%, #d4af37 40%, #8a7224 100%);
+  background: linear-gradient(to bottom, #fff 30%, #B38B2D 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 40px var(--gold-glow));
+  filter: drop-shadow(0 0 40px rgba(179, 139, 45, 0.4)) drop-shadow(0 0 100px rgba(0,0,0,0.6));
   margin: 1rem 0;
+  text-transform: uppercase;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.title:hover {
+  transform: scale(1.05);
 }
 
 @keyframes zoomOut {
@@ -329,9 +335,10 @@
 /* CTA Buttons */
 .ctaButtons {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .primaryBtn {
@@ -425,8 +432,8 @@
 }
 
 .audioControl:hover {
-  color: #fff;
-  border-color: #fff;
+  --orange: #ff7700;
+  --neon-green: #00ffaa;
   background: rgba(255, 255, 255, 0.05);
 }
 

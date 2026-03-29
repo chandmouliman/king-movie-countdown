@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "../app/page.module.css";
 
 interface CountdownProps {
@@ -33,27 +34,40 @@ export default function Countdown({ targetDate }: CountdownProps) {
 
     const pad = (num: number) => String(num).padStart(2, '0');
 
+    const TimeUnit = ({ value, label }: { value: number, label: string }) => (
+        <motion.div 
+            whileHover={{ 
+                scale: 1.05, 
+                rotateY: 10, 
+                rotateX: -5,
+                boxShadow: "0 20px 40px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow)"
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className={styles.timeBox}
+        >
+            <div className={styles.timeValue}>
+                <AnimatePresence mode="popLayout">
+                    <motion.span
+                        key={value}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -20, opacity: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                    >
+                        {pad(value)}
+                    </motion.span>
+                </AnimatePresence>
+            </div>
+            <span className={styles.timeLabel}>{label}</span>
+        </motion.div>
+    );
+
     return (
         <div className={styles.countdown}>
-            <div className={styles.timeBox}>
-                <span className={styles.timeValue}>{pad(timeLeft.days)}</span>
-                <span className={styles.timeLabel}>DAYS</span>
-            </div>
-            <div className={styles.separator}>:</div>
-            <div className={styles.timeBox}>
-                <span className={styles.timeValue}>{pad(timeLeft.hours)}</span>
-                <span className={styles.timeLabel}>HOURS</span>
-            </div>
-            <div className={styles.separator}>:</div>
-            <div className={styles.timeBox}>
-                <span className={styles.timeValue}>{pad(timeLeft.minutes)}</span>
-                <span className={styles.timeLabel}>MINUTES</span>
-            </div>
-            <div className={styles.separator}>:</div>
-            <div className={styles.timeBox}>
-                <span className={styles.timeValue}>{pad(timeLeft.seconds)}</span>
-                <span className={styles.timeLabel}>SECONDS</span>
-            </div>
+            <TimeUnit value={timeLeft.days} label="DAYS" />
+            <TimeUnit value={timeLeft.hours} label="HOURS" />
+            <TimeUnit value={timeLeft.minutes} label="MINUTES" />
+            <TimeUnit value={timeLeft.seconds} label="SECONDS" />
         </div>
     );
 }

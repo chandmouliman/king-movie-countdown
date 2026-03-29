@@ -1,182 +1,198 @@
 .container {
-    width: 100%;
     max-width: 1200px;
     margin: 4rem auto;
-    padding: 0 1rem;
-    font-family: var(--font-inter);
-    color: #fff;
+    padding: 2rem;
+    position: relative;
 }
 
 .header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.orangeBar {
+    width: 6px;
+    height: 50px;
+    background: linear-gradient(to bottom, #ff5500, #ffaa00);
+    border-radius: 3px;
+    box-shadow: 0 0 20px rgba(255, 85, 0, 0.4);
 }
 
 .title {
-    font-family: var(--font-cinzel);
-    font-size: 2rem;
-    font-weight: 800;
-    text-transform: uppercase;
+    font-size: 2.2rem;
+    font-weight: 900;
     margin: 0;
-    line-height: 1;
+    color: #fff;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.liveIndicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
 }
 
 .mainContainer {
-    display: flex;
-    gap: 2rem;
-    align-items: stretch;
-
-    @media (max-width: 900px) {
-        flex-direction: column;
-    }
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
 }
 
 .posterWrapper {
-    flex: 0 0 300px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
-    min-height: 400px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .posterImage {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.posterWrapper:hover .posterImage {
-    transform: scale(1.05);
-}
-
-.subtitle {
-    font-family: var(--font-inter);
-    font-size: 0.9rem;
-    color: #666;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.liveIndicator {
-    width: 10px;
-    height: 10px;
-    background-color: #00ff00;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #00ff00;
-    animation: pulse 1.5s infinite;
-}
-
-.orangeBar {
-    width: 4px;
-    height: 2rem;
-    background-color: #ff5500;
-    margin-right: 0.5rem;
+    height: auto;
+    display: block;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
     gap: 1.5rem;
 }
 
-@media (min-width: 900px) {
-    .grid {
-        grid-template-columns: 1fr 2fr;
-        grid-template-rows: auto auto;
-    }
-}
-
 .card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 2rem;
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(20px);
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.card:hover {
-    border-color: rgba(255, 85, 0, 0.4);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 85, 0, 0.15);
-    transform: translateY(-4px);
 }
 
 .interestCard {
-    grid-row: span 1;
-}
-
-.chartCard {
-    grid-column: span 1;
-
-    @media (min-width: 900px) {
-        grid-column: 2;
-        grid-row: 1;
-    }
-}
-
-.logsCard {
-    grid-column: span 1;
-
-    @media (min-width: 900px) {
-        grid-column: 1 / -1;
-        grid-row: 2;
-    }
+    grid-column: 1 / 2;
+    background: linear-gradient(135deg, rgba(255, 85, 0, 0.1) 0%, rgba(255, 85, 0, 0.02) 100%);
+    border-color: rgba(255, 85, 0, 0.15);
 }
 
 .cardLabel {
     font-size: 0.75rem;
-    color: #888;
-    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 800;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 1rem;
     display: block;
+    margin-bottom: 1.5rem;
 }
 
 .bigNumber {
-    font-size: 4.5rem;
+    font-size: 4rem;
     font-weight: 900;
-    font-family: var(--font-cinzel);
+    color: #fff;
     line-height: 1;
     margin-bottom: 2rem;
-    color: #fff;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    animation: neonFlicker 4s infinite, digitFlip 0.3s ease-out;
+    letter-spacing: -2px;
 }
 
 .statsRow {
     display: flex;
-    gap: 3rem;
-    margin-top: auto;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .statItem {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.5rem;
 }
 
 .statLabel {
-    font-size: 0.7rem;
-    color: #666;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .statValue {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #00ff00;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
 }
 
 .positive {
-    color: #00ff00;
+    color: #00ff88;
+}
+
+.interestedBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1.25rem;
+    background: #ff5500;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 16px;
+    font-weight: 900;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btnText {
+    position: relative;
+    z-index: 2;
+}
+
+.btnGlow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.interestedBtn:hover .btnGlow {
+    left: 100%;
+}
+
+.lastSync {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1.5rem;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.lastSync span {
+    color: #00ff88;
+    font-size: 10px;
+}
+
+.chartCard {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .chartHeader {
@@ -189,96 +205,44 @@
 .chartTitle {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
+    gap: 12px;
+    font-weight: 800;
+    color: #fff;
+    font-size: 1rem;
 }
 
 .chartIcon {
-    color: #ff5500;
+    font-size: 1.2rem;
 }
 
 .timeToggle {
     display: flex;
-    background: #000;
+    background: rgba(255, 255, 255, 0.05);
     padding: 4px;
-    border-radius: 8px;
-    border: 2px solid #000;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #fff;
-}
-
-.interestedBtn {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 2rem;
-    padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 102, 0) 100%);
-    color: var(--neon-green);
-    font-family: var(--font-inter);
-    font-weight: 800;
-    text-transform: uppercase;
-    border: 1px solid var(--neon-green);
-    border-radius: 12px;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    text-decoration: none;
-    font-size: 0.95rem;
-    letter-spacing: 0.2em;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
-}
-
-.interestedBtn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.3), transparent);
-    transition: left 0.5s ease;
-}
-
-.interestedBtn:hover {
-    background: rgba(0, 255, 136, 0.15);
-    border-color: #fff;
-    color: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3), 0 0 40px rgba(0, 255, 136, 0.2);
-}
-
-.interestedBtn:hover::after {
-    left: 100%;
+    border-radius: 10px;
 }
 
 .toggleBtn {
-    background: transparent;
+    background: none;
     border: none;
-    color: #666;
-    padding: 4px 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    transition: all 0.2s;
+    border-radius: 8px;
+    transition: all 0.3s;
 }
 
 .toggleBtn.active {
-    background: #ff5500;
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
 }
 
 .chartContainer {
-    width: 100%;
-    height: 200px;
+    height: 300px;
     position: relative;
+    margin: 2rem 0;
 }
 
 .chartSvg {
@@ -287,45 +251,47 @@
     overflow: visible;
 }
 
+.chartArea {
+    opacity: 0.3;
+}
+
 .chartLine {
     fill: none;
     stroke: #ff5500;
     stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
-    filter: drop-shadow(0 0 8px rgba(255, 85, 0, 0.3));
-}
-
-.chartArea {
-    fill: url(#gradient);
-    opacity: 0.2;
+    filter: drop-shadow(0 0 10px rgba(255, 85, 0, 0.5));
 }
 
 .chartDot {
-    fill: #fff;
-    stroke: #ff5500;
-    stroke-width: 2;
+    fill: #ff5500;
+    stroke: #fff;
+    stroke-width: 1.5;
 }
 
 .xAxis {
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
-    color: #444;
-    font-size: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+}
+
+.logsCard {
+    grid-column: 1 / 2;
 }
 
 .logsHeader {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 10px;
+    font-weight: 800;
+    color: #fff;
     margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.logsIcon {
-    color: #3b82f6;
+    font-size: 0.9rem;
 }
 
 .logsTable {
@@ -335,64 +301,42 @@
 
 .logsTable th {
     text-align: left;
-    color: #666;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.3);
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    letter-spacing: 1px;
 }
 
 .logsTable td {
-    padding: 1rem 0;
-    font-size: 0.9rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    font-variant-numeric: tabular-nums;
+    padding: 0.8rem 0;
+    font-size: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .logTime {
-    color: #888;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
 }
 
 .logInterest {
-    font-weight: 700;
-    font-family: var(--font-cinzel);
+    color: #fff;
+    font-weight: 800;
 }
 
 .logGrowth {
-    color: #00ff00;
+    color: #00ff88;
+    font-weight: 900;
     text-align: right;
 }
 
-.logsTable th:last-child {
-    text-align: right;
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 1;
-        transform: scale(1);
+@media (max-width: 1024px) {
+    .mainContainer {
+        grid-template-columns: 1fr;
     }
-
-    50% {
-        opacity: 0.5;
-        transform: scale(1.2);
+    .grid {
+        grid-template-columns: 1fr;
     }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
+    .chartCard {
+        grid-column: 1 / -1;
     }
-}
-
-/* Image at bottom left of the screenshot */
-.posterCard {
-    height: 100%;
-    min-height: 400px;
-    background-image: url('/path-to-poster.jpg');
-    /* Placeholder */
-    background-size: cover;
-    background-position: center;
-    border-radius: 16px;
-    position: relative;
 }

@@ -1,69 +1,97 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "./CustomCursor.module.css";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 
 export default function CustomCursor() {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [isHovering, setIsHovering] = useState(false);
-    const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  
+  const springConfig = { damping: 25, stiffness: 700 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
 
-    useEffect(() => {
-        const updateCursor = (e: MouseEvent) => {
-            setPosition({ x: e.clientX, y: e.clientY });
-            setIsVisible(true);
-        };
+  useEffect(() => {
+    const moveCursor = (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+      if (!isVisible) setIsVisible(true);
+    };
 
-        const handleMouseLeave = () => setIsVisible(false);
-        const handleMouseEnter = () => setIsVisible(true);
+    const handleHoverStart = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "BUTTON" ||
+        target.tagName === "A" ||
+        target.closest("button") ||
+        target.closest("a") ||
+        target.getAttribute("role") === "button"
+      ) {
+        setIsHovered(true);
+      } else {
+        setIsHovered(false);
+      }
+    };
 
-        const handleLinkHover = () => setIsHovering(true);
-        const handleLinkLeave = () => setIsHovering(false);
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mouseover", handleHoverStart);
 
-        window.addEventListener("mousemove", updateCursor);
-        window.addEventListener("mouseleave", handleMouseLeave);
-        window.addEventListener("mouseenter", handleMouseEnter);
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mouseover", handleHoverStart);
+    };
+  }, [isVisible]);
 
-        const hoverableElements = document.querySelectorAll("a, button, .clickable");
-        hoverableElements.forEach((el) => {
-            el.addEventListener("mouseenter", handleLinkHover);
-            el.addEventListener("mouseleave", handleLinkLeave);
-        });
+  if (!isVisible) return null;
 
-        const observer = new MutationObserver(() => {
-            const newHoverables = document.querySelectorAll("a, button, .clickable");
-            newHoverables.forEach((el) => {
-                el.addEventListener("mouseenter", handleLinkHover);
-                el.addEventListener("mouseleave", handleLinkLeave);
-            });
-        });
-
-        observer.observe(document.body, { childList: true, subtree: true });
-
-        return () => {
-            window.removeEventListener("mousemove", updateCursor);
-            window.removeEventListener("mouseleave", handleMouseLeave);
-            window.removeEventListener("mouseenter", handleMouseEnter);
-            hoverableElements.forEach((el) => {
-                el.removeEventListener("mouseenter", handleLinkHover);
-                el.removeEventListener("mouseleave", handleLinkLeave);
-            });
-            observer.disconnect();
-        };
-    }, []);
-
-    if (!isVisible) return null;
-
-    return (
-        <>
-            <div
-                className={`${styles.cursorDot} ${isHovering ? styles.hover : ""}`}
-                style={{ left: `${position.x}px`, top: `${position.y}px` }}
-            />
-            <div
-                className={`${styles.cursorRing} ${isHovering ? styles.hover : ""}`}
-                style={{ left: `${position.x}px`, top: `${position.y}px` }}
-            />
-        </>
-    );
+  return (
+    <>
+      <motion.div
+        className="custom-cursor"
+        style={{
+          translateX: cursorXSpring,
+          translateY: cursorYSpring,
+        }}
+      >
+        <motion.div
+          animate={{
+            scale: isHovered ? 1.5 : 1,
+            backgroundColor: isHovered ? "rgba(212, 175, 55, 0.3)" : "rgba(212, 175, 55, 0.1)",
+          }}
+          transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          style={{
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+            border: "1px solid var(--gold)",
+            position: "absolute",
+            top: "-16px",
+            left: "-16px",
+            pointerEvents: "none",
+            zIndex: 999999,
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: isHovered ? 0.5 : 1,
+          }}
+          style={{
+            width: "6px",
+            height: "6px",
+            borderRadius: "50%",
+            backgroundColor: "var(--gold-bright)",
+            position: "absolute",
+            top: "-3px",
+            left: "-3px",
+            pointerEvents: "none",
+            zIndex: 999999,
+            boxShadow: "0 0 10px var(--gold-glow)",
+          }}
+        />
+      </motion.div>
+    </>
+  );
 }

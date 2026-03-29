@@ -13,25 +13,29 @@ import FDFSModal from "../components/FDFSModal";
 import FanCardModal from "../components/FanCardModal";
 import VaultModal from "../components/VaultModal";
 import LiveInterestTracking from '@/components/LiveInterestTracking';
+import KKRLivePulse from '@/components/KKRLivePulse';
 import CastShowcase from '@/components/CastShowcase';
 import Navbar from "@/components/Navbar";
 import TeaserCard from "@/components/TeaserCard";
 import CastCard from "@/components/CastCard";
 
 
+import { motion, useScroll, useTransform } from "framer-motion";
+
 // Target Date: December 24, 2026
 const TARGET_DATE = new Date("2026-12-24T00:00:00");
 
-
 export default function Home() {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isTeaserOpen, setIsTeaserOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isFDFSOpen, setIsFDFSOpen] = useState(false);
   const [isFanCardOpen, setIsFanCardOpen] = useState(false);
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
-
-
 
   const handleEnter = () => {
     setIsPlaying(true);
@@ -44,7 +48,7 @@ export default function Home() {
   const handleOpenVideo = (videoId: string) => {
     setActiveVideoId(videoId);
     setIsTeaserOpen(true);
-    setIsPlaying(false); // Pause audio when video opens
+    setIsPlaying(false);
   };
 
   const handleCloseVideo = () => {
@@ -62,7 +66,7 @@ export default function Home() {
 
   const handleOpenFDFS = () => {
     setIsFDFSOpen(true);
-    setIsPlaying(false); // Pause audio when FDFS opens
+    setIsPlaying(false);
   };
 
   const handleCloseFDFS = () => {
@@ -93,50 +97,69 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      {/* 1. Splash Screen - Entry point */}
       <SplashScreen onEnter={handleEnter} />
-
-      {/* 2. Background Video */}
       <BackgroundVideo />
-
-      {/* Gold Particles Layer */}
       <GoldParticles />
 
-      {/* Cinematic Overlays */}
       <div className="cinematic-grain"></div>
       <div className="vignette"></div>
 
-      {/* 3. Audio Controller */}
       <AudioPlayer isPlaying={isPlaying} onToggle={toggleAudio} />
 
-      {/* 4. Navigation */}
       <Navbar
         onOpenGallery={handleOpenGallery}
         onOpenFDFS={handleOpenFDFS}
         onOpenFanCard={handleOpenFanCard}
       />
 
-      {/* 5. Main Content */}
       <main className={styles.main}>
-        <div className={styles.rightContent}>
+        <motion.div 
+          style={{ y: y1, opacity }}
+          className={styles.rightContent}
+        >
           <div className={styles.heroContent}>
-            <h2 className={styles.tagline}>DARR NAHI DEHSHAT HOON</h2>
-            <h1 className={styles.title}>KING</h1>
+            <motion.h2 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className={styles.tagline}
+            >
+              DARR NAHI DEHSHAT HOON
+            </motion.h2>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.7, duration: 1, ease: "easeOut" }}
+              className={styles.title}
+            >
+              KING
+            </motion.h1>
           </div>
 
           <div className={styles.centerContent}>
-            <Countdown targetDate={TARGET_DATE} />
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+            >
+              <Countdown targetDate={TARGET_DATE} />
+            </motion.div>
 
-            <div className={styles.ctaButtons}>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2 }}
+              className={styles.ctaButtons}
+            >
               <button
                 className={styles.primaryBtn}
                 onClick={() => handleOpenVideo("Uu2QK9Z9X5E")}
               >
                 WATCH TEASER
               </button>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </main>
 
       {/* Description Section */}
@@ -162,7 +185,7 @@ export default function Home() {
       {/* Live Fan Pulse */}
       <section className="reveal-on-scroll" style={{ animationDelay: '0.5s' }}>
         <LiveInterestTracking />
-
+        <KKRLivePulse />
         <CastShowcase />
       </section>
 

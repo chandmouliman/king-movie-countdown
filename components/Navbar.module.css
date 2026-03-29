@@ -58,20 +58,16 @@
 }
 
 .navItem {
-    font-family: var(--font-inter);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    padding: 0.55rem 1.1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
     position: relative;
-    transition: color 0.3s ease;
-    border-radius: 4px;
 }
 
-/* Glowing underline on hover */
 .navItem::after {
     content: '';
     position: absolute;

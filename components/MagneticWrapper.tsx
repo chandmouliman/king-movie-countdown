@@ -1,15 +1,22 @@
 "use client";
 
 import { useRef, useState, useEffect, ReactNode } from 'react';
+import { motion, useSpring, useMotionValue, useTransform } from 'framer-motion';
 
 interface MagneticWrapperProps {
     children: ReactNode;
-    strength?: number; // How strong the pull is (default 0.5)
+    strength?: number; // How strong the pull is (default 0.35)
 }
 
-export default function MagneticWrapper({ children, strength = 0.5 }: MagneticWrapperProps) {
+export default function MagneticWrapper({ children, strength = 0.35 }: MagneticWrapperProps) {
     const ref = useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const springConfig = { damping: 20, stiffness: 150, mass: 0.5 };
+    const springX = useSpring(mouseX, springConfig);
+    const springY = useSpring(mouseY, springConfig);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         const { clientX, clientY } = e;
@@ -21,26 +28,28 @@ export default function MagneticWrapper({ children, strength = 0.5 }: MagneticWr
         const x = (clientX - centerX) * strength;
         const y = (clientY - centerY) * strength;
 
-        setPosition({ x, y });
+        mouseX.set(x);
+        mouseY.set(y);
     };
 
     const handleMouseLeave = () => {
-        setPosition({ x: 0, y: 0 });
+        mouseX.set(0);
+        mouseY.set(0);
     };
 
     return (
-        <div
+        <motion.div
             ref={ref}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{
-                transform: `translate(${position.x}px, ${position.y}px)`,
-                transition: 'transform 0.1s ease-out', // Smooth transition
-                display: 'inline-block', // Ensure it wraps content tightly
-                cursor: 'none' // Maintain custom cursor visibility
+                x: springX,
+                y: springY,
+                display: 'inline-block',
+                cursor: 'none'
             }}
         >
             {children}
-        </div>
+        </motion.div>
     );
 }
